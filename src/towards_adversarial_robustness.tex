@@ -1,0 +1,186 @@
+\documentclass[11pt,dvipsnames,usenames,aspectratio=169]{beamer}  % Add handout to options to disable overlays
+
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{%
+  \usetheme{CambridgeUS}    % or try default, Darmstadt, Warsaw, ...
+  \usecolortheme{whale}     % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}          % or try default, structurebold, ...
+  % \usefonttheme[onlymath]{serif}
+  % \setbeamertemplate{navigation symbols}{}
+  % \setbeamercovered{transparent}
+
+  \setbeamercolor{title}{fg=white}
+  \setbeamerfont{title}{series=\bfseries}
+  \setbeamercolor{frametitle}{fg=black}
+  \setbeamerfont{frametitle}{series=\bfseries}
+
+  \setbeamercolor{section in head/foot}{fg=white}
+  \setbeamerfont{section in head/foot}{series=\bfseries}
+  \setbeamercolor{subsection in head/foot}{fg=white}
+  \setbeamerfont{subsection in head/foot}{series=\bfseries}
+  \setbeamercolor{author in head/foot}{fg=white}
+  \setbeamerfont{author in head/foot}{series=\bfseries}
+  \setbeamercolor{title in head/foot}{fg=white}
+  \setbeamerfont{title in head/foot}{series=\bfseries}
+
+  \setbeamercolor{block title}{use=structure,fg=white,bg=title in head/foot.bg}
+  \setbeamerfont{block title}{series=\bfseries}
+  \setbeamercolor{block body}{use=structure,fg=black,bg=black!1!white}
+}
+
+% Support graying out frame elements
+\newcommand{\FrameOpague}{\setbeamercovered{again covered={\opaqueness<1->{40}}}}
+% Transition slide
+\newcommand{\transitionFrame}[1]{%
+{%
+  \begin{frame}[plain,noframenumbering]{}{} % the plain option removes the sidebar and header from the title page
+    \setbeamertemplate{final page}[text]{\Large \textbf{#1}}
+    \usebeamertemplate{final page}
+  \end{frame}}
+}
+
+% \usepackage{hyperref}     % Loaded automatically by beamer
+\usepackage{pgfplots}       % Used to generate embedded plots
+\pgfplotsset{compat=1.13}
+
+% Here's where the presentation starts, with the info for the title slide
+\title[Towards Deep Robustness]{Towards Deep Learning Models Resistant to Adversarial Attacks}
+\author[Madry et al]{%
+  \href{mailto:madry@mit.edu}{Aleksander Madry}\inst{1}  % \textsuperscript{(\Letter)}
+  \and
+  \href{mailto:amakelov@mit.edu}{Aleksandar Makelov}\inst{1}  % \textsuperscript{(\Letter)}
+  \and
+  \href{mailto:ludwigs@mit.edu}{Ludwig Schmidt}\inst{1}  % \textsuperscript{(\Letter)}
+  \and
+  \href{mailto:tsipras@mit.edu}{Dimitris Tsipras}\inst{1}  % \textsuperscript{(\Letter)}
+  \and
+  \href{mailto:avladu@mit.edu}{Adrian Vladu}\inst{1}  % \textsuperscript{(\Letter)}
+  % \href{mailto:lowd@cs.uoregon.edu}{Daniel Lowd}\inst{1}
+}
+
+\institute[MIT]{%
+  \textsuperscript{1}\textbf{MIT -- CSAIL}\\
+  % \texttt{{zayd, lowd}@ucsc.edu}
+}
+\date{\today}
+
+
+\input{global_macros}
+\input{macros}
+\renewcommand{\green}[1]{{\color{ForestGreen} #1}}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{What is an Adversarial Example?}
+  \begin{definition}
+    \textit{\green{Adversarial Example}}: An input chosen/modified by an adversary that is almost indistinguishable from natural data but is (confidently) misclassified by the network.
+  \end{definition}
+
+  \begin{columns}
+    \begin{column}{0.25\textwidth}
+      \onslide<+->{
+        \begin{center}
+          \includegraphics{adv_panda}
+
+          \textbf{Panda}
+          \\
+          55.7\% Confidence
+        \end{center}
+      }
+    \end{column}
+    \onslide<+->{
+      \begin{column}{0.05\textwidth}
+          \begin{center}
+            +\vspace{.9cm}
+          \end{center}
+      \end{column}
+      \begin{column}{0.25\textwidth}
+          \begin{center}
+            \includegraphics{adv_noise}
+            \vspace{.9cm}
+          \end{center}
+      \end{column}
+    }
+    \onslide<+->{
+    \begin{column}{0.05\textwidth}
+        \begin{center}
+          =\vspace{.9cm}
+        \end{center}
+    \end{column}
+    \begin{column}{0.25\textwidth}
+        \begin{center}
+          \includegraphics{adv_combined}
+          \textbf{Gibbon}
+          \\
+          99.3\% Confidence
+        \end{center}
+    \end{column}
+      }
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{Nomenclature}
+  \begin{itemize}
+    \item ${\X \in \mathbb{R}^{d}}$: Training example feature values
+    \item ${\y \in \sbrack{k}}$: Training example label
+
+    \item $\params$: Model parameters
+
+    \item $\distr$: Underlying sample data distribution s.t.\ ${(\X,\y) \sim \distr}$
+    \item ${\sPerturb \subseteq \mathbb{R}^d}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
+    % \item $\sgn(x) =  \begin{cases}
+    %                     1   & x > 0 \\
+    %                     0   & x = 0 \\
+    %                     -1  & x < 0
+    %                   \end{cases}\text{.}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fast Gradient Sign Method}
+  Simple ``single-step-size'' approach for generating adversarial examples~\cite{Goodfellow:2014}
+  \vfill
+  Formally:
+  \begin{itemize}
+    \item $\X$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Projected Gradient Descent}
+  \onslide<+->{
+    \begin{definition}
+      A \textit{\green{projection}} of a point~$y$ onto a set~$X$ is defined as:
+
+      \[ \Pi_{X}(y) = \argmin_{x \in X} \norm{x-y}^{2}_{2}\text{.}  \]
+    \end{definition}
+  }
+  \vfill
+  \onslide<+->{
+    \begin{definition}
+      \textit{\green{Project gradient descent}} (PGD) is a multi-step scheme used to construct adversarial examples.
+    \end{definition}
+  }
+  \onslide<+->{
+    \begin{equation}\label{eq:PGD}
+      \X^{(t+1)} = \Pi_{x+\sPerturb} \left( \X^{(t)} + \alpha \sgn \left( \nabla_{\X} \loss \left( \X, \y; \theta \right)  \right) \right)
+    \end{equation}
+  }
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+  {\tiny
+    \frametitle{References}
+    \bibliographystyle{ieeetr}
+    \bibliography{bib/references.bib}
+  }
+\end{frame}
+
+\end{document}
