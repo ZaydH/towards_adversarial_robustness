@@ -47,7 +47,7 @@
 \pgfplotsset{compat=1.13}
 
 % Here's where the presentation starts, with the info for the title slide
-\title[Towards Deep Robustness]{Towards Deep Learning Models Resistant to Adversarial Attacks}
+\title[Towards Deep Robustness]{Towards Deep Learning Models Resistant to Adversarial Attacks~\cite{Madry:2017}}
 \author[Madry et al]{%
   \href{mailto:madry@mit.edu}{Aleksander Madry}\inst{1}  % \textsuperscript{(\Letter)}
   \and
@@ -67,7 +67,6 @@
 }
 \date{\today}
 
-
 \input{global_macros}
 \input{macros}
 \renewcommand{\green}[1]{{\color{ForestGreen} #1}}
@@ -79,54 +78,21 @@
   \titlepage
 \end{frame}
 
-\begin{frame}{What is an Adversarial Example?}
-  \begin{definition}
-    \textit{\green{Adversarial Example}}: An input chosen/modified by an adversary that is almost indistinguishable from natural data but is (confidently) misclassified by the network.
-  \end{definition}
-
-  \begin{columns}
-    \begin{column}{0.25\textwidth}
-      \onslide<+->{
-        \begin{center}
-          \includegraphics{adv_panda}
-
-          \textbf{Panda}
-          \\
-          55.7\% Confidence
-        \end{center}
-      }
-    \end{column}
-    \onslide<+->{
-      \begin{column}{0.05\textwidth}
-          \begin{center}
-            +\vspace{.9cm}
-          \end{center}
-      \end{column}
-      \begin{column}{0.25\textwidth}
-          \begin{center}
-            \includegraphics{adv_noise}
-            \vspace{.9cm}
-          \end{center}
-      \end{column}
-    }
-    \onslide<+->{
-    \begin{column}{0.05\textwidth}
-        \begin{center}
-          =\vspace{.9cm}
-        \end{center}
-    \end{column}
-    \begin{column}{0.25\textwidth}
-        \begin{center}
-          \includegraphics{adv_combined}
-          \textbf{Gibbon}
-          \\
-          99.3\% Confidence
-        \end{center}
-    \end{column}
-      }
-  \end{columns}
-
+\begin{frame}{Why is Adversarial Robustness Important?}
+  Machine learning-based classifiers are increasing the center of \blue{security-critical systems}.
+  \begin{itemize}
+    \item \textit{Examples}: Autonomous cars, face recognition, \& malware detection
+  \end{itemize}
+  \vfill
+  Training models can very effectively classify \green{benign} inputs
+  \begin{itemize}
+    \item \textit{Very small} changes to an input image can fool state of the art classifiers with \textit{high confidence}
+    \item \textbf{Crucial Design Goal}: Resistance to \textit{adversarially chosen inputs}
+  \end{itemize}
 \end{frame}
+
+\section{Background}
+\input{background}
 
 \begin{frame}{Nomenclature}
   \begin{itemize}
