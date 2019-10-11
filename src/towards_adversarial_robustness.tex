@@ -141,6 +141,42 @@
   }
 \end{frame}
 
+\section{Network Capacity \& Adversarial Robustness}
+
+\begin{frame}{Visualizing the Effect of Capacity}
+  \begin{columns}
+    \begin{column}{0.32\textwidth}
+      \onslide<+->{
+        \begin{center}
+          \includegraphics[scale=0.3]{capacity/benign_only.pdf}
+
+          (Benign) binary classification using a \\\blue{linear decision boundary}
+        \end{center}
+      }
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \onslide<+->{
+        \begin{center}
+          \includegraphics[scale=0.3]{capacity/misclassified_adv.pdf}
+
+          Adversarial $\ell_{\infty}$ balls
+          \\
+          \red{$\star$} misclassified \\ adversarial examples
+        \end{center}
+      }
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \onslide<+->{
+        \begin{center}
+          \includegraphics[scale=0.3]{capacity/complicated_decision.pdf}
+
+          ``Complicated'' decision boundary required
+        \end{center}
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}[allowframebreaks]
   {\tiny
     \frametitle{References}
