@@ -47,7 +47,7 @@
 \pgfplotsset{compat=1.13}
 
 % Here's where the presentation starts, with the info for the title slide
-\title[Towards Deep Robustness]{Towards Deep Learning Models \\ Resistant to Adversarial Attacks~\cite{Madry:2017}}
+\title[Towards Deep Robustness]{Towards Deep Learning Models \\ Resistant to Adversarial Attacks\texorpdfstring{~\cite{Madry:2017}}{}}
 \author[Madry et al]{%
   \href{mailto:madry@mit.edu}{Aleksander Madry}\inst{1}  % \textsuperscript{(\Letter)}
   \and
@@ -98,35 +98,11 @@
 
 \input{optimization}
 
-\begin{frame}{Fast Gradient Sign Method}
-  Simple ``single-step-size'' approach for generating adversarial examples~\cite{Goodfellow:2014}
-  \vfill
-  Formally:
-  \begin{itemize}
-    \item $\X$
-  \end{itemize}
-\end{frame}
+\input{produce_good_adv_examples}
 
-\begin{frame}{Projected Gradient Descent}
-  \onslide<+->{
-    \begin{definition}
-      A \textit{\green{projection}} of a point~$y$ onto a set~$X$ is defined as:
+\input{adv_example_experiments}
 
-      \[ \Pi_{X}(y) = \argmin_{x \in X} \norm{x-y}^{2}_{2}\text{.}  \]
-    \end{definition}
-  }
-  \vfill
-  \onslide<+->{
-    \begin{definition}
-      \textit{\green{Project gradient descent}} (PGD) is a multi-step scheme used to construct adversarial examples.
-    \end{definition}
-  }
-  \onslide<+->{
-    \begin{equation}\label{eq:PGD}
-      \X^{(t+1)} = \Pi_{x+\sPerturb} \left( \X^{(t)} + \alpha \sgn \left( \nabla_{\X} \loss \left( \X, \y; \theta \right)  \right) \right)
-    \end{equation}
-  }
-\end{frame}
+\input{train_to_eliminate_adv_examples}
 
 \section{Network Capacity \& Adversarial Robustness}
 

@@ -61,8 +61,8 @@
   \only<3-6>{Optimization Framework's Two Key Parts
     \begin{itemize}
       \setlength{\itemsep}{4pt}
-      \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Find \textbf{worst case} ${\xadv = \X + \perturb}$ with highest loss}
-      \item \onslide<5->{\textbf{\color{ForestGreen}Outer Minimization}: Find model parameters~$\params$ that minimize adversarial loss}
+    \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Adversary finds (\textbf{worst case}) ${\xadv = \X + \perturb}$ with highest loss}
+      \item \onslide<5->{\textbf{\color{ForestGreen}Outer Minimization}: Defender selects model parameters~$\params$ that minimize adversarial loss}
     \end{itemize}
   }
   \only<7->{
@@ -84,7 +84,7 @@
   \onslide<+->{}
   \onslide<+->{\textbf{No.}} \onslide<+->{Inner \& outer components of minimax formulation are non-convex and non-concave respectively.}
   \vfill
-  \onslide<+->{\textbf{\green{Key Contribution}}: Demonstrating adversarial minimax optimization \textit{is} tractable.}
+  \onslide<+->{\textbf{\green{Key Contribution \#1}}: Demonstrating adversarial minimax optimization \textit{is} tractable.}
   \begin{itemize}[<+->]
     \item We will talk about tractability next.
   \end{itemize}
