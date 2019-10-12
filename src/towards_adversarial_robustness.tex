@@ -47,7 +47,7 @@
 \pgfplotsset{compat=1.13}
 
 % Here's where the presentation starts, with the info for the title slide
-\title[Towards Deep Robustness]{Towards Deep Learning Models Resistant to Adversarial Attacks~\cite{Madry:2017}}
+\title[Towards Deep Robustness]{Towards Deep Learning Models \\ Resistant to Adversarial Attacks~\cite{Madry:2017}}
 \author[Madry et al]{%
   \href{mailto:madry@mit.edu}{Aleksander Madry}\inst{1}  % \textsuperscript{(\Letter)}
   \and
@@ -78,6 +78,7 @@
   \titlepage
 \end{frame}
 
+\section{Introduction}
 \begin{frame}{Why is Adversarial Robustness Important?}
   Machine learning-based classifiers are increasing the center of \blue{security-critical systems}.
   \begin{itemize}
@@ -86,7 +87,8 @@
   \vfill
   Training models can very effectively classify \green{benign} inputs
   \begin{itemize}
-    \item \textit{Very small} changes to an input image can fool state of the art classifiers with \textit{high confidence}
+    \setlength\itemsep{6pt}
+    \item \textit{Very small} changes to an input can fool state of the art classifiers with \textit{high confidence}
     \item \textbf{Crucial Design Goal}: Resistance to \textit{adversarially chosen inputs}
   \end{itemize}
 \end{frame}
@@ -94,22 +96,9 @@
 \section{Background}
 \input{background}
 
-\begin{frame}{Nomenclature}
-  \begin{itemize}
-    \item ${\X \in \mathbb{R}^{d}}$: Training example feature values
-    \item ${\y \in \sbrack{k}}$: Training example label
-
-    \item $\params$: Model parameters
-
-    \item $\distr$: Underlying sample data distribution s.t.\ ${(\X,\y) \sim \distr}$
-    \item ${\sPerturb \subseteq \mathbb{R}^d}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
-    % \item $\sgn(x) =  \begin{cases}
-    %                     1   & x > 0 \\
-    %                     0   & x = 0 \\
-    %                     -1  & x < 0
-    %                   \end{cases}\text{.}$
-  \end{itemize}
-\end{frame}
+\section{Let's Talk Optimization}
+\transitionFrame{Let's Talk Optimization}
+\input{optimization}
 
 \begin{frame}{Fast Gradient Sign Method}
   Simple ``single-step-size'' approach for generating adversarial examples~\cite{Goodfellow:2014}

@@ -6,45 +6,62 @@
   }
 
   \begin{columns}
-    \begin{column}{0.25\textwidth}
+    \begin{column}{0.23\textwidth}
       \onslide<+->{
         \begin{center}
           \includegraphics{adv_panda}
 
+          \textbf{\blue{Prediction}}
+          \\
           \textbf{Panda}
           \\
-          55.7\% Confidence
+          55.7\% Confidence~\cite{Goodfellow:2014}
         \end{center}
       }
     \end{column}
     \onslide<+->{
       \begin{column}{0.05\textwidth}
           \begin{center}
-            +\vspace{.9cm}
+            +\vspace{1.6cm}
           \end{center}
       \end{column}
-      \begin{column}{0.25\textwidth}
+      \begin{column}{0.20\textwidth}
           \begin{center}
             \includegraphics{adv_noise}
-            \vspace{.9cm}
+
+            \textbf{\blue{Prediction}}
+            \\
+            \textbf{Nematode}
+            \\
+            8.2\% Confidence
           \end{center}
       \end{column}
     }
     \onslide<+->{
-    \begin{column}{0.05\textwidth}
-        \begin{center}
-          =\vspace{.9cm}
-        \end{center}
-    \end{column}
-    \begin{column}{0.25\textwidth}
-        \begin{center}
-          \includegraphics{adv_combined}
-          \textbf{Gibbon}
-          \\
-          99.3\% Confidence
-        \end{center}
-    \end{column}
-      }
+      \begin{column}{0.05\textwidth}
+          \begin{center}
+            =\vspace{1.6cm}
+          \end{center}
+      \end{column}
+      \begin{column}{0.20\textwidth}
+          \begin{center}
+            \includegraphics{adv_combined}
+            \textbf{\blue{Prediction}}
+            \\
+            \textbf{Gibbon}
+            \\
+            99.3\% Confidence
+          \end{center}
+      \end{column}
+    }
+    \onslide<+->{
+      \begin{column}{0.20\textwidth}
+          \begin{center}
+            \includegraphics[scale=0.15]{gibbon}
+            \textbf{\red{Actual}\\Gibbon}
+          \end{center}
+      \end{column}
+    }
   \end{columns}
 
 \end{frame}
@@ -84,4 +101,52 @@
 \end{frame}
 
 
+\begin{frame}{Attack Paradigms}
+  \madry\ study adversarial robustness under two different attack paradigms:
+  \vfill
+  \begin{enumerate}[<+->]
+    \item \textbf{Black-Box}: Adversary has no direct access to target network
+      \begin{itemize}[<+->]
+        \setlength\itemsep{6pt}
+        \item \red{Weaker} attack paradigm
+        \item Adversary may have \textit{rough} information, e.g.,~model architecture \& training dataset
+          \begin{itemize}
+            \item \textit{Example}: Transfer attack
+          \end{itemize}
+        \item Generally \textit{one-shot} attacks
+      \end{itemize}
+    \vfill
+    \item \textbf{White-Box}: Attacker has access to target network's parameter
+      \begin{itemize}
+        \setlength\itemsep{6pt}
+        \item \green{Stronger} attack paradigm
+        \item \textit{Examples}: PGD and FGSM (both discussed in this talk)
+        \item Enables \textit{iterative} attacks, e.g.,~refined probing
+      \end{itemize}
+  \end{enumerate}
+\end{frame}
 
+
+\begin{frame}{Nomenclature}
+  \onslide<+->{Quite standard and used throughout this talk.}  \onslide<+->{\textit{If you have a question,} \textbf{ask now!}}
+
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{6pt}
+    \item ${\X \in \domainX}$: feature values
+    \item ${\y \in \domainY}$: Ground truth (true) label
+    \item $\func{\distr}{\domainX \times \domainY}{\mathbb{R}_{{\geq}0}}$: Underlying sample data probability distribution s.t.\ ${(\X,\y) \sim \distr}$
+
+    \vspace{6pt}
+    \item ${\params \in \domainP}$: Model (neural network) parameters
+
+    \vspace{6pt}
+    \item ${\sPerturb \subseteq \domainX}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
+    \item ${\perturb \in \sPerturb}$: (Adversarial) perturbation s.t.
+      \begin{equation}\label{eq:AdversarialX}
+        \X^{\text{adv}} = x + \delta
+      \end{equation}
+
+    \vspace{6pt}
+    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (weighted mean) of $f(x)$ for all ${x \in \mathcal{X}}$
+  \end{itemize}
+\end{frame}

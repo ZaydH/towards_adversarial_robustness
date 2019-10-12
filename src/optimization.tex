@@ -1,0 +1,62 @@
+\transitionFrame{\textbf{Contribution \#1}: Define a \blue{tractable} learner that is \green{adversarially-robust} against a universal \textit{first-order adversary}}
+
+\begin{frame}{What is a ``first-order adversary''?}
+  \onslide<+->{
+    \begin{definition}{First-order Adversary}
+      The strongest attack (e.g.,~white-box) utilizing only \textit{first-order} information about the network
+    \end{definition}
+  }
+
+\end{frame}
+
+\begin{frame}{``Standard'' Classification Model}
+  \begin{itemize}[<+->]
+    \item Neural network training is based on \textit{\blue{empirical risk minimization}} (ERM)
+    \item \textbf{\green{Basic Goal}}
+      \begin{equation}\label{eq:ERM}
+        \min_{\params} \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{\loss \left( \X, \y ; \params \right)}
+      \end{equation}
+
+    \item \textit{\blue{Attack Model}}: For any ${x \in \domainX}$, adversary can make a set of allowed perturbations~$\sPerturb$
+      \begin{itemize}
+        \item \textit{Theoretical Paradigm}: $\sPerturb = \linf\text{-ball}$
+      \end{itemize}
+
+    \item \textbf{\red{Big Problem}}: ERM-trained models are not robust to adversarially perturbed examples~\cite{Biggio:2013,Szegedy:2013}
+  \end{itemize}
+\end{frame}
+
+\subsection{Minimax}
+\begin{frame}{Minimax Framework}
+  \begin{definition}
+    \blue{\textit{Minimax optimization}} reformulates ERM as:
+    \onslide<2->{
+      \begin{equation}\label{eq:Minimax}
+        \textcolor<5->{ForestGreen}{\min_{\params} \rho(\params)}\text{, where } \rho(\params) = \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{\textcolor<4->{red}{ \max_{\delta \in \sPerturb} \loss (\X + \perturb, \y ; \params)}} \text{.}
+      \end{equation}
+    }
+  \end{definition}
+
+  \vspace{8pt}
+  \only<3-6>{Two parts to minimax optimization framework
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \item \onslide<4->{{\color{red}Inner Maximization}: Find \red{worst case} ${\xadv = \X + \perturb}$ with highest loss}
+      \item \onslide<5->{{\color{ForestGreen}Outer Minimization}: Find model parameters~$\params$ that minimize adversarial loss}
+    \end{itemize}
+  }
+  \only<7->{
+    \textbf{Question}: What can we say if ${\textcolor{ForestGreen}{\min_{\params} \rho(\params)} \rightarrow 0}$?
+
+    \vspace{4pt}
+    \onslide<8->{\textbf{Answer}: \green{Perfect robustness}. \textit{Guarantee} no perturbation defined in attack model ($\sPerturb$) fools the network.}
+
+    \vspace{10pt}
+    \onslide<9->{\textbf{Why?}} \onslide<10->{Inner maximization considers \red{worst case} adversary so guarantees all cases}
+   }
+\end{frame}
+
+
+\begin{frame}{So...Are We Done Here?}
+
+\end{frame}
