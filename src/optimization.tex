@@ -1,18 +1,37 @@
-\transitionFrame{\textbf{Contribution \#1}: Define a \blue{tractable} learner that is \green{adversarially-robust} against a universal \textit{first-order adversary}}
+\section{Optimization \& Adv.\ Robustness}
+\transitionFrame{Relating Optimization \& Adversarial Robustness}
 
-\begin{frame}{What is a ``first-order adversary''?}
-  \onslide<+->{
-    \begin{definition}{First-order Adversary}
-      The strongest attack (e.g.,~white-box) utilizing only \textit{first-order} information about the network
-    \end{definition}
-  }
 
+\begin{frame}{Nomenclature}
+  \onslide<+->{Quite standard and used throughout this talk.}  \onslide<+->{\textit{If you have a question,} \textbf{ask now!}}
+
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{6pt}
+    \item ${\X \in \domainX}$: feature values
+    \item ${\y \in \domainY}$: Ground truth (true) label
+    \item $\func{\distr}{\domainX \times \domainY}{\mathbb{R}_{{\geq}0}}$: Underlying sample data probability distribution s.t.\ ${(\X,\y) \sim \distr}$
+
+    \vspace{6pt}
+    \item ${\params \in \domainP}$: Model (neural network) parameters
+
+    \vspace{6pt}
+    \item ${\sPerturb \subseteq \domainX}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
+    \item ${\perturb \in \sPerturb}$: (Adversarial) perturbation s.t.
+      \begin{equation}\label{eq:AdversarialX}
+        \X^{\text{adv}} = x + \delta
+      \end{equation}
+
+    \vspace{6pt}
+    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (weighted mean) of $f(x)$ for all ${x \in \mathcal{X}}$
+  \end{itemize}
 \end{frame}
+
 
 \begin{frame}{``Standard'' Classification Model}
   \begin{itemize}[<+->]
+    \setlength{\itemsep}{20pt}
     \item Neural network training is based on \textit{\blue{empirical risk minimization}} (ERM)
-    \item \textbf{\green{Basic Goal}}
+    \item \textbf{\green{Fundamental Idea}}:
       \begin{equation}\label{eq:ERM}
         \min_{\params} \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{\loss \left( \X, \y ; \params \right)}
       \end{equation}
@@ -26,6 +45,7 @@
   \end{itemize}
 \end{frame}
 
+
 \subsection{Minimax}
 \begin{frame}{Minimax Framework}
   \begin{definition}
@@ -38,25 +58,34 @@
   \end{definition}
 
   \vspace{8pt}
-  \only<3-6>{Two parts to minimax optimization framework
+  \only<3-6>{Optimization Framework's Two Key Parts
     \begin{itemize}
       \setlength{\itemsep}{4pt}
-      \item \onslide<4->{{\color{red}Inner Maximization}: Find \red{worst case} ${\xadv = \X + \perturb}$ with highest loss}
-      \item \onslide<5->{{\color{ForestGreen}Outer Minimization}: Find model parameters~$\params$ that minimize adversarial loss}
+      \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Find \textbf{worst case} ${\xadv = \X + \perturb}$ with highest loss}
+      \item \onslide<5->{\textbf{\color{ForestGreen}Outer Minimization}: Find model parameters~$\params$ that minimize adversarial loss}
     \end{itemize}
   }
   \only<7->{
     \textbf{Question}: What can we say if ${\textcolor{ForestGreen}{\min_{\params} \rho(\params)} \rightarrow 0}$?
 
     \vspace{4pt}
-    \onslide<8->{\textbf{Answer}: \green{Perfect robustness}. \textit{Guarantee} no perturbation defined in attack model ($\sPerturb$) fools the network.}
+    \onslide<8->{\textbf{Answer}: \green{Perfect robustness}. \textit{Security guarantee} no perturbation defined in attack model ($\sPerturb$) fools the network.}
+    \begin{itemize}
+      \item \onslide<9->{\textbf{Summary}: No adversarial examples!\textsuperscript{*}}
+    \end{itemize}
 
     \vspace{10pt}
-    \onslide<9->{\textbf{Why?}} \onslide<10->{Inner maximization considers \red{worst case} adversary so guarantees all cases}
+    \onslide<10->{\textbf{Why?}} \onslide<11->{Inner maximization considers \textbf{worst case} adversary guaranteeing all cases}
    }
 \end{frame}
 
 
-\begin{frame}{So...Are We Done Here?}
-
+\begin{frame}{So\ldots Are We Done Here?}
+  \onslide<+->{}
+  \onslide<+->{\textbf{No.}} \onslide<+->{Inner \& outer components of minimax formulation are non-convex and non-concave respectively.}
+  \vfill
+  \onslide<+->{\textbf{\green{Key Contribution}}: Demonstrating adversarial minimax optimization \textit{is} tractable.}
+  \begin{itemize}[<+->]
+    \item We will talk about tractability next.
+  \end{itemize}
 \end{frame}
