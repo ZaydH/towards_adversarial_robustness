@@ -1,0 +1,47 @@
+\section{Adversarial Training}
+
+\transitionFrame{Adversarially Robust Training}
+
+\begin{frame}{Solving the Outer Minimization}
+  \onslide<+->{%
+    \begin{equation}\label{eq:MinimaxTrainRepeat}
+      \green{\min_{\params} \rho(\params)} \text{, where } \rho(\params) = \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{\red{\max_{\delta \in \sPerturb} \loss (\X + \perturb, \y ; \params)}}
+    \end{equation}
+  }
+
+  \begin{itemize}[<+->]
+    \item We talked about solving the \red{inner maximization} to create the adversarial examples.
+
+    \vspace{13pt}
+    \item \textbf{Question}: What do we need to solve to train adversarially robust networks?
+    \vspace{5pt}
+    \item \textbf{Answer}: Solve the \green{outer minimization}
+
+    \vspace{13pt}
+    \item \textbf{Question}: What algorithm can use to solve the outer maximization?
+    \vspace{5pt}
+    \item \textbf{Answer}: Stochastic gradient descent (SGD) on the adversarial examples
+      \begin{itemize}[<+->]
+        \setlength{\itemsep}{6pt}
+        \item \textit{Intuition}: SGD on adv.\ examples' loss reduces the \red{inner maximization}
+        \item \textit{Takeaway}: Given an algorithm that transforms training examples into adv.\ examples (e.g.,~PGD), the rest of the \textbf{\blue{training process proceeds normally}}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Why Should I Believe the Preceding Claims are True?}
+  \onslide<+->{}
+  \onslide<+->{\textbf{Answer}: You shouldn't.  The preceding explanation is definitely \red{not a proof}.}
+
+  \vspace{20pt}
+  \onslide<+->{\madry\ rely on \textbf{\blue{Danskin's Theorem}} that states gradients at inner maximizers correspond to descent directions for the complete problem}
+
+  \vspace{20pt}
+  \onslide<+->{\textbf{Problem}: Multiple assumptions made by Danskin's Theorem's \red{do not apply} here, e.g.,~continuously differentiable function, only approximate inner maximizers etc.}
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{6pt}
+    \item Empirical results show that despite Danskin's not holding the algorithm is addressing the issues
+    \item A more complete discussion of how Danksin's applies to this problem is in Appendix~A (see Arxiv version) and is beyond the scope of this talk
+  \end{itemize}
+\end{frame}
