@@ -1,5 +1,25 @@
 \section{Optimization \& Adv.\ Robustness}
-\transitionFrame{Relating Optimization \& Adversarial Robustness}
+\transitionFrame{Relating Optimization \& Adversarial Guarantees}
+
+
+\begin{frame}{What is an adversarial \blue{guarantee}?}
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{20pt}
+    \item Last week we reviewed multiple possible defensive techniques, e.g.,~robustness, disinformation,~etc.
+    \item \textbf{Guarantee}: Certifies that a ``well-defined'' class of adversarial attacks are prevented
+      \begin{itemize}
+        \item \textit{Example}: Class of \textbf{\blue{first-order adversaries}} (under certain conditions)
+      \end{itemize}
+
+    \item \textbf{Question}: What guarantees did the authors' of last week's paper provide?
+    \vspace{-14pt}
+    \item \textbf{Answer}: None. \onslide<+->{\textit{And that's the point}}
+      \begin{itemize}[<+->]
+        \item \textbf{\green{Goal}}: Make \textbf{\blue{provable statements about robustness}}.
+        \item If we can do it, that's a yuge deal
+      \end{itemize}
+  \end{itemize}
+\end{frame}
 
 
 \begin{frame}{Nomenclature}
