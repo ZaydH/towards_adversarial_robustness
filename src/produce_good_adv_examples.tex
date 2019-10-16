@@ -1,5 +1,14 @@
 \begin{frame}{Two Primary Questions}
+  \onslide<+->{Previous work focused on two primary questions.  These form the basis of this work.}
+  \vfill
+    \begin{itemize}[<+->]
+      \setlength\itemsep{15pt}
+      \item How can we produce \textit{strong} adversarial examples that fool the model with high confidence while requiring only a small perturbation?
 
+      \item How can we train a model so there are no \only<+->{(\textit{easily found})} adversarial examples?
+    \end{itemize}
+  \vfill
+  \onslide<+->{We will tackle these two questions separately with the first one being much more interesting}
 \end{frame}
 
 \section{Producing Strong Adversarial Examples}
@@ -175,13 +184,20 @@
   }
 
   \vfill
-  \onslide<7->{An attacker using higher order information is used (e.g.,~Hessian) may tractably find adversarial examples.}
+  \onslide<7->{An attacker using higher order information (e.g.,~Hessian) may tractably find adversarial examples.}
   \begin{itemize}
-    \item \onslide<8->{Similar to a \textit{polynomially bounded} adversary that is the cornerstone of cryptography}
+    \item \onslide<8->{Similar to a \textit{polynomially-bounded} adversary that is the cornerstone of cryptography}
   \end{itemize}
 \end{frame}
 
 \subsection{Zero-Order Adversaries}
 \begin{frame}{Zero-Order Adversaries}
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{20pt}
+    \item A \blue{\textbf{zero-order adversary}} has no direct access to the classifier and is only able to evaluate the classifier based on chosen examples \red{without gradient feedback}
 
+    \item \textit{Example}: Black-box attacker
+
+    \item Much more challenging that one-day attacker
+  \end{itemize}
 \end{frame}
