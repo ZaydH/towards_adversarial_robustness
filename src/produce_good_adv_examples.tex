@@ -5,7 +5,7 @@
       \setlength\itemsep{15pt}
       \item How can we produce \textit{strong} adversarial examples that fool the model with high confidence while requiring only a small perturbation?
 
-      \item How can we train a model so there are no \only<+->{(\textit{easily found})} adversarial examples?
+      \item How can we train a model so there are no \only<+->{(\textit{easily found}) }adversarial examples?
     \end{itemize}
   \vfill
   \onslide<+->{We will tackle these two questions separately with the first one being much more interesting}
@@ -29,7 +29,6 @@
   \begin{itemize}[<+->]
     \setlength{\itemsep}{8pt}
     \item \textbf{\red{Previous Work}}: Fast Gradient Sign Method (FGSM)
-    \item \textbf{\blue{\madry's Solution}}: Projected Gradient Descent (PGD)
   \end{itemize}
 \end{frame}
 
@@ -58,24 +57,29 @@
     \item \textbf{Why?} \onslide<+->{Not selecting the \textit{worst-case} perturbation}
     \item Easy to find ``nearby'' perturbations with significantly higher loss
   \end{itemize}
+  \vfill
+  \onslide<+->{\textbf{\madry's Solution}: \blue{\textbf{Projected Gradient Descent}} (PGD)}
 \end{frame}
 
 
-\begin{frame}{Projected Gradient Descent}
-  \onslide<+->{A type of \green{\textit{constrained optimization}} with the constraint is a \blue{\textit{projection}}}
+\begin{frame}{Projected Gradient Descent (PGD)}
+  \onslide<+->{\textbf{Question}: What is PGD?}
+
+  \vspace{4pt}
+  \onslide<+->{\textbf{Answer}: Form of \green{\textit{constrained optimization}} where the constraint is a \blue{\textbf{projection}}}
 
   \vfill
   \onslide<+->{
     \begin{definition}
       A \textbf{\blue{projection}} of a point~$z$ onto a set~$\mathcal{X}$ is defined as:
 
-      \[ \Pi_{\mathcal{X}}(z) = \argmin_{\X \in \mathcal{X}} \norm{\X-z}^{p}\text{.}  \]
+      \[ \Pi_{\sPerturb}(z) = \argmin_{s \in \sPerturb} \norm{s-z}_{p}\text{.}  \]
     \end{definition}
   }
 
   \vfill
   \begin{itemize}[<+->]
-    \item $\Pi_{X}$ is the projection operator
+    \item $\Pi_{\sPerturb}$ is the projection operator
   \end{itemize}
 \end{frame}
 
@@ -86,14 +90,14 @@
       \textbf{Procedure}:
       \begin{enumerate}[<+->]
         \setlength{\itemsep}{12pt}
-        \item For any ${\X \in \mathcal{X}}$, define ${\X^{(0)} = \X + \delta}$ where ${\perturb \sim \mathcal{U}\left( \sPerturb \right)}$
+        \item For any ${\X \in \mathcal{X}}$, define ${\X^{(0)} = \X + \perturb}$ where ${\perturb \sim \mathcal{U}\left( \sPerturb \right)}$
         \item For each time $t$, define:
           \begin{equation}\label{eq:PGD:GradUpdate}
-            z^{(t+1)} = \X^{(t)} \textcolor<+->{red}{-} \alpha \nabla_{\X} \loss(\X^{(t+1)}, \y_{\X}) \text{.}
+            z^{(t+1)} = \X^{(t)} \textcolor<6->{red}{-} \alpha \nabla_{\X} \loss(\X^{(t+1)}, \y_{\X}) \text{.}
           \end{equation}
         \item Enforce the constraint where:
           \begin{equation}\label{eq:PGD:NextX}
-            \X^{(t+1)} = \Pi_{\mathcal{\mathcal{X}}}(z^{(k+1)}) \text{.}
+            \X^{(t+1)} = \Pi_{\mathcal{X}}(z^{(k+1)}) \text{.}
           \end{equation}
 
         \item Repeat steps~\#2 and~\#3 until convergence
@@ -108,29 +112,43 @@
 \end{frame}
 
 \subsection{\texorpdfstring{$\ell_{p}$}{Lp} Balls}
-\transitionFrame{To go further, we need to understand $\ell_{p}$ balls\ldots}
+
+\begin{frame}{What is our constraint set~$\sPerturb$?}
+  \begin{itemize}
+    \setlength{\itemsep}{20pt}
+    \item By definition, PGD requires a constraint set,~$\sPerturb$
+
+    \item Recall that in adversarial training,~$\sPerturb$, is the set of allowed perturbations
+
+    \item In this paper, $\sPerturb$ is an $\ell_{p}$ ball
+      \begin{itemize}
+        \item Let's define what those are\ldots
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
 
 \begin{frame}{$\ell_{p}$ Balls --- Norms First}
-  For ${x \in \mathbb{d}}$, the $L_{p}$ norm is:
+  For ${x \in \mathbb{R}^d}$, the $L_{p}$ norm is:
 
   \begin{equation}\label{eq:LpNorm}
     \norm{x}_{p} = \left( \sum_{i=1} x_{i}^{p}  \right)^{\frac{1}{p}}
   \end{equation}
 
-  $L_{\infty}$ norm is a special a case:
+  $L_{\infty}$ norm is a special case:
 
   \begin{equation}\label{eq:LinftyNorm}
     \norm{x}_{\infty} = \sup_{i} \abs{x_i}
   \end{equation}
 
   \begin{center}
-    \textbf{Note}: $\sup$ equals the $\max$ for a finite set
+    \textbf{Note}: ``$\sup$'' equals the ``$\max$'' for a finite set
   \end{center}
 \end{frame}
 
 \begin{frame}{$\ell_{p}$ Balls --- Formally}
   \begin{definition}
-    Given scalar ${\varepsilon > 0}$, the $\ell_{p}$~ball of a point ${x \in \mathbb{R}^{d}}$ is:
+    Given scalar ${\varepsilon > 0}$, the $\ell_{p}$~ball of a point ${x \in \mathbb{R}^{d}}$ is the set:
 
     \begin{equation}\label{eq:LpBall}
       \ell_{p}(x) = \setbuild{x + \delta}{\norm{\delta}_{p} \leq \varepsilon}\text{.}
@@ -164,11 +182,18 @@
 \subsection{\texorpdfstring{$\ell_{\infty}$}{L-infinity}~Ball \& PGD}
 
 \begin{frame}{Connecting $\ell_{\infty}$ \& PGD}
+  \begin{itemize}[<+->]
+    \setlength{\itemsep}{20pt}
+    \item Since ${\forall_{p\in mathbb{R}} \hspace{3pt} \ell_p \subset \ell_{\infty}}$, providing an adversarial guarantee over $\ell_{\infty}$ guarantees that for any other $p$, the maximum loss will be the same or smaller.
 
+    \item Uses complete first-order information, i.e.,~not only the gradient's information
+
+    \item \textbf{Summary}: Training a network robust to PGD~adversaries makes it robust against a wide range of other attacks as well
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{PGD \& Adversarial Tractability}
-  \onslide<+->{\textbf{\blue{Question}}: Does PGD + $\ell_{\infty}$~balls guarantee eliminate \textit{all} adversarial examples within (Minkowski) distance~$\varepsilon$ of $\X$?}
+  \onslide<+->{\textbf{\blue{Question}}: Does PGD + $\ell_{\infty}$\-/balls guarantee to eliminate \textit{all} adversarial examples within (Minkowski) distance~$\varepsilon$ of $\X$?}
 
   \vspace{3pt}
   \onslide<3->{\textbf{Answer}: No.} \only<4-5>{Why?}
@@ -179,14 +204,14 @@
   \vfill
   \onslide<6->{
     \begin{definition}
-      \blue{\textbf{First-order Adversary}} is the strongest attack utilizing only \textit{first-order} (e.g.,~gradient) information about network
+      \blue{\textbf{First-order adversary}} is the strongest attack utilizing only \textit{first-order} (e.g.,~gradient) information about network
     \end{definition}
   }
 
   \vfill
-  \onslide<7->{An attacker using higher order information (e.g.,~Hessian) may tractably find adversarial examples.}
+  \onslide<7->{An attacker using higher order information (e.g.,~Hessian) may tractably find adversarial examples.} \onslide<8->{They may even find them \textit{easily}.}
   \begin{itemize}
-    \item \onslide<8->{Similar to a \textit{polynomially-bounded} adversary that is the cornerstone of cryptography}
+    \item \onslide<9->{Similar to \textit{polynomially-bounded} adversary that is cornerstone of cryptography}
   \end{itemize}
 \end{frame}
 
@@ -196,6 +221,7 @@
     \setlength{\itemsep}{20pt}
     \item A \blue{\textbf{zero-order adversary}} has no direct access to the classifier and is only able to evaluate the classifier based on chosen examples
       \begin{itemize}
+        \setlength{\itemsep}{8pt}
         \item ``Zero-order'' means no access to ``first-order'' information
         \item \textit{Translation}: \red{No gradient feedback}
       \end{itemize}

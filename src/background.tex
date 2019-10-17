@@ -1,7 +1,8 @@
 \begin{frame}{What is an Adversarial Example?}
+  \onslide<+->{}
   \onslide<+->{
     \begin{definition}
-      \textit{\green{Adversarial Example}}: An input chosen/modified by an adversary that is almost indistinguishable from natural data but is (confidently) misclassified by the network.
+      \textbf{\blue{Adversarial Example}}: Input chosen/modified by an adversary that is almost \textit{indistinguishable} from natural data but is (\textit{confidently}) misclassified by the model.
     \end{definition}
   }
 
@@ -11,7 +12,7 @@
         \begin{center}
           \includegraphics{adv_panda}
 
-          \textbf{\blue{Prediction}}
+          \textbf{\green{Prediction}}
           \\
           \textbf{Panda}
           \\
@@ -29,7 +30,7 @@
           \begin{center}
             \includegraphics{adv_noise}
 
-            \textbf{\blue{Prediction}}
+            \textbf{\green{Prediction}}
             \\
             \textbf{Nematode}
             \\
@@ -46,7 +47,7 @@
       \begin{column}{0.20\textwidth}
           \begin{center}
             \includegraphics{adv_combined}
-            \textbf{\blue{Prediction}}
+            \textbf{\green{Prediction}}
             \\
             \textbf{Gibbon}
             \\
@@ -71,18 +72,21 @@
   \madry\ study adversarial robustness under two different attack paradigms:
   \vfill
   \begin{enumerate}[<+->]
-    \item \textbf{Black-Box}: Adversary has no direct access to target network
+    \item \blue{\textbf{Black-Box}}: Adversary has no direct access to target network
       \begin{itemize}[<+->]
         \setlength\itemsep{6pt}
         \item \red{Weaker} attack paradigm
         \item Adversary may have \textit{rough} information, e.g.,~model architecture \& training dataset
-          \begin{itemize}
+          \begin{itemize}[<+->]
+            \setlength{\itemsep}{6pt}
             \item \textit{Example}: Transfer attack
+            \item \textbf{Question}: What is a transfer attack? What is an intuition for why they are effective?
           \end{itemize}
-        \item Generally \textit{one-shot} attacks
+        % \item Generally \textit{one-shot} attacks
       \end{itemize}
+
     \vfill
-    \item \textbf{White-Box}: Attacker has access to target network's parameter
+    \item \blue{\textbf{White-Box}}: Attacker has access to target network's parameter
       \begin{itemize}
         \setlength\itemsep{6pt}
         \item \green{Stronger} attack paradigm

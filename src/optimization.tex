@@ -8,16 +8,17 @@
     \item Last week we reviewed multiple possible defensive techniques, e.g.,~robustness, disinformation,~etc.
     \item \textbf{Guarantee}: Certifies that a ``well-defined'' class of adversarial attacks are prevented
       \begin{itemize}
-        \item \textit{Example}: Class of \textbf{\blue{first-order adversaries}} (under certain conditions)
+        \item \textit{Example}: Class of \textbf{\blue{first-order adversaries}}
       \end{itemize}
 
     \item \textbf{Question}: What guarantees did the authors' of last week's paper provide?
     \vspace{-14pt}
     \item \textbf{Answer}: None. \onslide<+->{\textit{And that's the point}}
+
+    \item \textbf{Goal}: Make \textbf{\green{provable statements about robustness}}.
       \begin{itemize}[<+->]
-        \item \textbf{\green{Goal}}: Make \textbf{\blue{provable statements about robustness}}.
         \item If we can do it, that's a \textit{yuge} deal.
-        \item Neutralizes\textsuperscript{*} the arms race.
+        \item Ends\textsuperscript{*} the arms race.
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -28,27 +29,27 @@
 
   \begin{itemize}[<+->]
     \setlength{\itemsep}{6pt}
-    \item ${\X \in \domainX}$: feature values
-    \item ${\y \in \domainY}$: Ground truth (true) label
+  \item ${\X \in \domainX \subseteq \mathbb{R}^d}$: feature values
+    \item ${\y \in \domainY \equiv \ints{k}}$: Ground truth (true) label
     \item $\func{\distr}{\domainX \times \domainY}{\mathbb{R}_{{\geq}0}}$: Underlying sample data probability distribution s.t.\ ${(\X,\y) \sim \distr}$
 
     \vspace{6pt}
     \item ${\params \in \domainP}$: Model (neural network) parameters
 
     \vspace{6pt}
-    \item ${\sPerturb \subseteq \domainX}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
+  \item ${\sPerturb \subseteq \mathbb{R}^{d}}$: Set of allowed (adversarial) perturbations can be applied to any~$\X$
     \item ${\perturb \in \sPerturb}$: (Adversarial) perturbation s.t.
       \begin{equation}\label{eq:AdversarialX}
         \X^{\text{adv}} = x + \delta
       \end{equation}
 
     \vspace{6pt}
-    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (weighted mean) of $f(x)$ for all ${x \in \mathcal{X}}$
+    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (weighted mean) of $f(x)$
   \end{itemize}
 \end{frame}
 
 
-\begin{frame}{``Standard'' Classification Model}
+\begin{frame}{``Standard'' Training Model}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
     \item Neural network training is based on \textit{\blue{empirical risk minimization}} (ERM)
@@ -68,7 +69,7 @@
 
 
 \subsection{Minimax}
-\begin{frame}{Minimax Framework}
+\begin{frame}{Adversarial Training Framework}
   \begin{definition}
     \blue{\textit{Minimax optimization}} reformulates ERM as:
     \onslide<2->{
@@ -79,24 +80,24 @@
   \end{definition}
 
   \vspace{8pt}
-  \only<3-6>{Optimization Framework's Two Key Parts
+  \only<3-5>{Optimization Framework's Two Key Parts
     \begin{itemize}
       \setlength{\itemsep}{4pt}
     \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Adversary finds (\textbf{worst case}) ${\xadv = \X + \perturb}$ with highest loss}
       \item \onslide<5->{\textbf{\color{ForestGreen}Outer Minimization}: Defender selects model parameters~$\params$ that minimize adversarial loss}
     \end{itemize}
   }
-  \only<7->{
+  \only<6->{
     \textbf{Question}: What can we say if ${\textcolor{ForestGreen}{\min_{\params} \rho(\params)} \rightarrow 0}$?
 
     \vspace{4pt}
-    \onslide<8->{\textbf{Answer}: \green{Perfect robustness}. \textit{Adversarial guarantee} no perturbation defined in attack model ($\sPerturb$) fools the network.}
+    \onslide<7->{\textbf{Answer}: \green{Perfect robustness}. \textit{Adversarial guarantee} no perturbation defined in attack model ($\sPerturb$) fools the network.}
     \begin{itemize}
-      \item \onslide<9->{\textbf{Summary}: No adversarial examples!\textsuperscript{*}}
+      \item \onslide<8->{\textbf{Summary}: No adversarial examples!\textsuperscript{*}}
     \end{itemize}
 
     \vspace{10pt}
-    \onslide<10->{\textbf{Why?}} \onslide<11->{Inner maximization considers \textbf{worst case} adversary guaranteeing all cases}
+    \onslide<9->{\textbf{Why?}} \onslide<10->{Inner maximization considers \textbf{worst case} adversary guaranteeing all cases}
    }
 \end{frame}
 
@@ -106,7 +107,7 @@
   \onslide<+->{\textbf{No.}} \onslide<+->{Inner \& outer components of minimax formulation are non-convex and non-concave respectively.}
   \vfill
   \onslide<+->{\textbf{\green{Key Contribution \#1}}: Demonstrating adversarial minimax optimization \textit{is} tractable.}
-  \begin{itemize}[<+->]
-    \item We will talk about tractability next.
-  \end{itemize}
+  % \begin{itemize}[<+->]
+  %   \item We will talk about tractability in the coming slides.
+  % \end{itemize}
 \end{frame}

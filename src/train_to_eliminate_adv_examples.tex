@@ -10,7 +10,7 @@
   }
 
   \begin{itemize}[<+->]
-    \item We talked about solving the \red{inner maximization} to create the adversarial examples.
+    \item So far, we have only talked about solving the \red{inner maximization} to create adversarial examples
 
     \vspace{13pt}
     \item \textbf{Question}: What do we need to solve to train adversarially robust networks?
@@ -35,7 +35,7 @@
   \onslide<+->{\textbf{Answer}: You shouldn't.  The preceding explanation is definitely \red{not a proof}.}
 
   \vspace{20pt}
-  \onslide<+->{\madry\ rely on \textbf{\blue{Danskin's Theorem}} that states gradients at inner maximizers correspond to descent directions for the complete problem}
+  \onslide<+->{\madry\ rely on \textbf{\blue{Danskin's Theorem}} that states gradients at inner maximizers (think adversarial examples) correspond to descent directions for the complete problem}
 
   \vspace{20pt}
   \onslide<+->{\textbf{Problem}: Multiple assumptions made by Danskin's Theorem's \red{do not apply} here, e.g.,~continuously differentiable function, only approximate inner maximizers etc.}

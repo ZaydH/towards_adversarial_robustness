@@ -21,32 +21,33 @@
 \end{frame}
 
 
-\begin{frame}{Experiment Setup}
+\begin{frame}{Experimental Setup}
   \onslide<+->{Setup applies for all experiments in this section}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \setlength{\itemsep}{10pt}
     \item \textbf{Datasets}: MNIST \& CIFAR10
 
-    \item \textbf{Procedure}: For each iteration
+    \item \textbf{Procedure}: Select example,~$\X$, u.a.r.\ from the dataset, then for each random restart:
       \begin{enumerate}[<+->]
         \setlength\itemsep{6pt}
-        \item Select example,~$\X$, u.a.r.\ from the dataset
-        \item Select perturbation,~${\perturb \in \sPerturb}$ u.a.r.
+        \item Select initial perturbation,~${\perturb \in \sPerturb}$, u.a.r.
         \item Perform PGD on perturbed example, ${\X + \perturb}$
       \end{enumerate}
 
     \item \textbf{\# Random Restarts}: Varies by experiment
 
     \item \textbf{Loss Function}: Cross-entropy
-      \begin{equation}\label{eq:CrossEntropy}
-        \loss(y,\hat{y}) = \sum_{c \in \mathcal{C}} -y_c \log \left( \hat{y}_{c} \right)
-      \end{equation}
+      \onslide<+->{
+        \begin{equation}\label{eq:CrossEntropy}
+          \loss(y,\hat{y}) = \sum_{c \in \mathcal{C}} -y_c \log \left( \hat{y}_{c} \right)
+        \end{equation}
+      }
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Experiment~\#1: $\Delta\loss$ vs.\ \#Iterations}
-  \onslide<+->{\textbf{Goal}: Study change in loss versus number of iterations of PGD}
+  \onslide<+->{\textbf{Goal}: Study change in adversarial loss for each iteration of PGD}
   \begin{itemize}[<+->]
     \item \textbf{\# Random Restarts}: 20
   \end{itemize}
@@ -75,22 +76,22 @@
     \end{column}
   \end{columns}
   \vfill
-  \onslide<+->{\textbf{Takeaways}}
+  \onslide<+->{\green{\textbf{Takeaways}}}
   \begin{itemize}[<+->]
     \item Adversarial training significantly reduces loss on adversarial examples.
     \item Loss values are \textbf{\blue{well-concentrated}}
       \begin{itemize}
-        \item Echoes folklore belief neural network training possible since many local minima with similar loss values
+        \item Echoes \textit{folklore belief} neural network training possible since many local minima with similar loss values
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Experiment~\#2: Absence of Outliers}
-  \onslide<+->{\textbf{Goal}: Verify security guarantee for a large number of examples \& iterations}
+  \onslide<+->{\textbf{Goal}: Verify security guarantee across many examples \& random restarts}
   \begin{itemize}[<+->]
     \item \textbf{\# Examples} ($x$): 5
-    \item \textbf{\# Iterations}: 100K
+    \item \textbf{\# Random Restarts}: 100K
   \end{itemize}
 
   \vspace{-15pt}
@@ -119,18 +120,20 @@
 \end{frame}
 
 
-\begin{frame}{Experiment~\#3: Adversarial Example Mode Collapse}
-  \onslide<+->{\textbf{\blue{Mode Collapse}}: Common problem in GANs where the generated output where the generated outputs have limited diversity.}
+\begin{frame}{Experiment~\#3: ``Mode Collapse''}
+  \onslide<+->{\textbf{\blue{Mode Collapse}}: Common problem in GANs where the generated outputs have limited diversity.}
   \vfill
-  \onslide<+->{\green{\textbf{Goal}}: Demonstrate that the generated adversarial examples are noticeably distinct:}
+  \onslide<+->{\textbf{Goal}: Demonstrate that the generated adversarial examples are noticeably distinct:}
   \begin{itemize}[<+->]
-    \item \# Iterations: 10,000
+    \item \textbf{\# Random Restarts}: 10,000
     \item \textbf{Metric}: Inter-adversarial example (Euclidean) distance
   \end{itemize}
   \vfill
   \onslide<+->{\textbf{\green{Result}}: Inter-maxima distance is distributed close to the expected distance between \textit{two random points} in the $\ell_{\infty}$\-/ball and cosine similarity between points is close to 90\textsuperscript{$\circ$}.}
   \begin{itemize}[<+->]
-    \item Empirically demonstrates no adversarial example ``mode collapse''
+    % \item Empirically demonstrates no adversarial example ``mode collapse''
     \item Recall the ``curse of dimensionality'' so take with a grain of salt
   \end{itemize}
+  \vfill
+  \onslide<+->{\textbf{\green{Takeaway}}: No evidence of mode collapse}
 \end{frame}

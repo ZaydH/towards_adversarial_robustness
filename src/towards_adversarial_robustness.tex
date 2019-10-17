@@ -1,4 +1,4 @@
-\documentclass[11pt,dvipsnames,usenames,handout,aspectratio=169]{beamer}  % Add handout to options to disable overlays
+\documentclass[11pt,dvipsnames,usenames,aspectratio=169]{beamer}  % Add handout to options to disable overlays
 
 % For more themes, color themes and font themes, see:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -48,7 +48,7 @@
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Towards Deep Robustness]{Towards Deep Learning Models \\ Resistant to Adversarial Attacks\texorpdfstring{~\cite{Madry:2017}}{}}
-\author[Madry et al]{%
+\author[\madry]{%
   \href{mailto:madry@mit.edu}{Aleksander Madry}\inst{1}  % \textsuperscript{(\Letter)}
   \and
   \href{mailto:amakelov@mit.edu}{Aleksandar Makelov}\inst{1}  % \textsuperscript{(\Letter)}
@@ -85,9 +85,9 @@
     \item \textit{Examples}: Autonomous cars, face recognition, \& malware detection
   \end{itemize}
   \vfill
-  Training models can very effectively classify \green{benign} inputs
+  Classifiers can very effectively classify \green{benign} inputs
   \begin{itemize}
-    \setlength\itemsep{6pt}
+    \setlength\itemsep{12pt}
     \item \textit{Very small} changes to an input can fool state-of-the-art classifiers with \textit{high confidence}
     \item \textbf{Crucial Design Goal}: Resistance to \textit{adversarially chosen inputs}
   \end{itemize}
