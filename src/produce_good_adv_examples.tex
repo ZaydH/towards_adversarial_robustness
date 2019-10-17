@@ -194,7 +194,11 @@
 \begin{frame}{Zero-Order Adversaries}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
-    \item A \blue{\textbf{zero-order adversary}} has no direct access to the classifier and is only able to evaluate the classifier based on chosen examples \red{without gradient feedback}
+    \item A \blue{\textbf{zero-order adversary}} has no direct access to the classifier and is only able to evaluate the classifier based on chosen examples
+      \begin{itemize}
+        \item ``Zero-order'' means no access to ``first-order'' information
+        \item \textit{Translation}: \red{No gradient feedback}
+      \end{itemize}
 
     \item \textit{Example}: Black-box attacker
 
