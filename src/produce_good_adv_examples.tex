@@ -91,13 +91,13 @@
       \begin{enumerate}[<+->]
         \setlength{\itemsep}{12pt}
         \item For any ${\X \in \mathcal{X}}$, define ${\X^{(0)} = \X + \perturb}$ where ${\perturb \sim \mathcal{U}\left( \sPerturb \right)}$
-        \item For each time $t$, define:
+        \item At each time $t$, define:
           \begin{equation}\label{eq:PGD:GradUpdate}
-            z^{(t+1)} = \X^{(t)} \textcolor<6->{red}{-} \alpha \nabla_{\X} \loss(\X^{(t+1)}, \y_{\X}) \text{.}
+            z^{(t+1)} = \X^{(t)} \textcolor<6->{red}{-} \alpha \nabla_{\X} \loss(\X^{(t)}, \y) \text{.}
           \end{equation}
         \item Enforce the constraint where:
           \begin{equation}\label{eq:PGD:NextX}
-            \X^{(t+1)} = \Pi_{\mathcal{X}}(z^{(k+1)}) \text{.}
+            \X^{(t+1)} = \Pi_{\mathcal{X}}(z^{(t+1)}) \text{.}
           \end{equation}
 
         \item Repeat steps~\#2 and~\#3 until convergence
@@ -111,7 +111,7 @@
   \end{columns}
 \end{frame}
 
-\subsection{\texorpdfstring{$\ell_{p}$}{Lp} Balls}
+\subsection{\texorpdfstring{$\ell_{p}$}{Lp}-Balls}
 
 \begin{frame}{What is our constraint set~$\sPerturb$?}
   \begin{itemize}
@@ -120,7 +120,7 @@
 
     \item Recall that in adversarial training,~$\sPerturb$, is the set of allowed perturbations
 
-    \item In this paper, $\sPerturb$ is an $\ell_{p}$ ball
+    \item In this paper, $\sPerturb$ is an $\ell_{p}$-ball
       \begin{itemize}
         \item Let's define what those are\ldots
       \end{itemize}
@@ -128,7 +128,7 @@
 \end{frame}
 
 
-\begin{frame}{$\ell_{p}$ Balls --- Norms First}
+\begin{frame}{$\ell_{p}$-Balls --- Norms First}
   \onslide<+->{For ${x \in \mathbb{R}^d}$, the $L_{p}$ norm is:}
 
   \onslide<+->{%
@@ -152,7 +152,7 @@
   }
 \end{frame}
 
-\begin{frame}{$\ell_{p}$ Balls --- Formally}
+\begin{frame}{$\ell_{p}$-Balls --- Formally}
   \begin{definition}
     Given scalar ${\varepsilon > 0}$, the $\ell_{p}$~ball of a point ${x \in \mathbb{R}^{d}}$ is the set:
 
@@ -190,7 +190,7 @@
 \begin{frame}{Connecting $\ell_{\infty}$ \& PGD}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
-    \item Since ${\forall_{p\in mathbb{R}} \hspace{3pt} \ell_p \subset \ell_{\infty}}$, providing an adversarial guarantee over $\ell_{\infty}$ guarantees that for any other $p$, the maximum loss will be the same or smaller.
+    \item Since ${\forall_{p \in \mathbb{R}} \hspace{3pt} \ell_p \subset \ell_{\infty}}$, providing an adversarial guarantee over $\ell_{\infty}$ guarantees that for any other $p$, the maximum loss will be the same or smaller.
 
     \item Uses complete first-order information, i.e.,~not only the gradient's information
 
@@ -232,8 +232,8 @@
         \item \textit{Translation}: \red{No gradient feedback}
       \end{itemize}
 
-    \item \textit{Example}: Black-box attacker
+    \item \textit{Example}: Black-box attack
 
-    \item Much more challenging that one-day attacker
+    \item Much more challenging that first-order attack
   \end{itemize}
 \end{frame}
