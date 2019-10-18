@@ -129,21 +129,27 @@
 
 
 \begin{frame}{$\ell_{p}$ Balls --- Norms First}
-  For ${x \in \mathbb{R}^d}$, the $L_{p}$ norm is:
+  \onslide<+->{For ${x \in \mathbb{R}^d}$, the $L_{p}$ norm is:}
 
-  \begin{equation}\label{eq:LpNorm}
-    \norm{x}_{p} = \left( \sum_{i=1} x_{i}^{p}  \right)^{\frac{1}{p}}
-  \end{equation}
+  \onslide<+->{%
+    \begin{equation}\label{eq:LpNorm}
+      \norm{x}_{p} = \left( \sum_{i=1} x_{i}^{p}  \right)^{\frac{1}{p}}
+    \end{equation}
+  }
 
-  $L_{\infty}$ norm is a special case:
+  \onslide<+->{$L_{\infty}$ norm is a special case:}
 
-  \begin{equation}\label{eq:LinftyNorm}
-    \norm{x}_{\infty} = \sup_{i} \abs{x_i}
-  \end{equation}
+  \onslide<+->{%
+    \begin{equation}\label{eq:LinftyNorm}
+      \norm{x}_{\infty} = \sup_{i} \abs{x_i}
+    \end{equation}
+  }
 
-  \begin{center}
-    \textbf{Note}: ``$\sup$'' equals the ``$\max$'' for a finite set
-  \end{center}
+  \onslide<+->{%
+    \begin{center}
+      \textbf{Note}: ``$\sup$'' equals the ``$\max$'' for a finite set
+    \end{center}
+  }
 \end{frame}
 
 \begin{frame}{$\ell_{p}$ Balls --- Formally}
@@ -193,7 +199,7 @@
 \end{frame}
 
 \begin{frame}{PGD \& Adversarial Tractability}
-  \onslide<+->{\textbf{\blue{Question}}: Does PGD + $\ell_{\infty}$\-/balls guarantee to eliminate \textit{all} adversarial examples within (Minkowski) distance~$\varepsilon$ of $\X$?}
+  \onslide<+->{\textbf{\blue{Question}}: Is PGD + $\ell_{\infty}$\-/balls guaranteed to eliminate \textit{all} adversarial examples within (Minkowski) distance~$\varepsilon$ of $\X$?}
 
   \vspace{3pt}
   \onslide<3->{\textbf{Answer}: No.} \only<4-5>{Why?}
