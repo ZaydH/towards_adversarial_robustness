@@ -5,11 +5,12 @@
 \begin{frame}{What is an adversarial \blue{guarantee}?}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
-    \item Last week we reviewed multiple possible defensive techniques, e.g.,~robustness, disinformation,~etc.
     \item \textbf{Guarantee}: Certifies that a ``well-defined'' class of adversarial attacks are prevented
       \begin{itemize}
         \item \textit{Example}: Class of \textbf{\blue{first-order adversaries}}
       \end{itemize}
+
+    \item Last week we reviewed multiple possible defensive techniques, e.g.,~robustness, disinformation,~etc.
 
     \item \textbf{Question}: What guarantees did the authors' of last week's paper provide?
     \vspace{-14pt}
@@ -29,7 +30,7 @@
 
   \begin{itemize}[<+->]
     \setlength{\itemsep}{6pt}
-  \item ${\X \in \domainX \subseteq \mathbb{R}^d}$: feature values
+  \item ${\X \in \domainX \subset \mathbb{R}^d}$: Feature vector
     \item ${\y \in \domainY \equiv \ints{k}}$: Ground truth (true) label
     \item $\func{\distr}{\domainX \times \domainY}{\mathbb{R}_{{\geq}0}}$: Underlying sample data probability distribution s.t.\ ${(\X,\y) \sim \distr}$
 
@@ -44,7 +45,7 @@
       \end{equation}
 
     \vspace{6pt}
-    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (weighted mean) of $f(x)$
+    \item $\mathbb{E}_{x \in \mathcal{X}}\sbrack{f(x)}$: Expected value (mean) of $f(x)$
   \end{itemize}
 \end{frame}
 
@@ -52,15 +53,16 @@
 \begin{frame}{``Standard'' Training Model}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
-    \item Neural network training is based on \textit{\blue{empirical risk minimization}} (ERM)
+    \item Neural network training is based on \textbf{\blue{empirical risk minimization}} (ERM)
     \item \textbf{\green{Fundamental Idea}}:
       \begin{equation}\label{eq:ERM}
         \min_{\params} \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{\loss \left( \X, \y ; \params \right)}
       \end{equation}
 
-    \item \textit{\blue{Attack Model}}: For any ${x \in \domainX}$, adversary can make a set of allowed perturbations~$\sPerturb$
+    \item \textbf{\blue{Attack Model}}: For any ${x \in \domainX}$, adversary can make a set of allowed perturbations~$\sPerturb$
       \begin{itemize}
-        \item \textit{Theoretical Paradigm}: $\sPerturb = \linf\text{-ball}$
+        % \item \textit{Theoretical Paradigm}: $\sPerturb = \linf\text{-ball}$
+        \item We'll formally define $\sPerturb$ later.  For now, it is any subset of $\mathbb{R}^{d}$
       \end{itemize}
 
     \item \textbf{\red{Big Problem}}: ERM-trained models are not robust to adversarially perturbed examples~\cite{Biggio:2013,Szegedy:2013}
@@ -83,7 +85,7 @@
   \only<3-5>{Optimization Framework's Two Key Parts
     \begin{itemize}
       \setlength{\itemsep}{4pt}
-    \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Adversary finds (\textbf{worst case}) ${\xadv = \X + \perturb}$ with highest loss}
+    \item \onslide<4->{\textbf{\color{red}Inner Maximization}: Adversary finds ${\xadv = \X + \perturb}$ with highest loss (think worst case)}
       \item \onslide<5->{\textbf{\color{ForestGreen}Outer Minimization}: Defender selects model parameters~$\params$ that minimize adversarial loss}
     \end{itemize}
   }
@@ -105,6 +107,9 @@
 \begin{frame}{So\ldots Are We Done Here?}
   \onslide<+->{}
   \onslide<+->{\textbf{No.}} \onslide<+->{Inner \& outer components of minimax formulation are non-convex and non-concave respectively.}
+  \begin{itemize}[<+->]
+    \item \textit{Worst Case}: $\text{Non-convexity} \implies \text{Intractable}$ (rule of thumb)
+  \end{itemize}
   \vfill
   \onslide<+->{\textbf{\green{Key Contribution \#1}}: Demonstrating adversarial minimax optimization \textit{is} tractable.}
   % \begin{itemize}[<+->]
