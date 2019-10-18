@@ -102,12 +102,32 @@
 \begin{frame}
 	\onslide<+->{What they found:
 		\begin{itemize}[<+->]
-			\setlength\itemsep{8pt}
+			\setlength\itemsep{3pt}
 			\item Capacity alone helps
+				\begin{itemize}[<+->]
+					\setlength\itemsep{1pt}
+					\item Even with training on natural examples, increase in capacity increases the robustness against one-step perturbation
+					\item  This effect is greater when considering adversarial examples with smaller $\varepsilon$
+				\end{itemize}
 			\item FGSM adversaries don’t increase robustness (for large  $\varepsilon$)
-			\item Weak models may fail to learn non-trivial classifiers
+			\begin{itemize}[<+->]
+				\setlength\itemsep{1pt}
+				\item Training a network with FGSM adversaries and large  $\varepsilon$ results in 
+				\item Known as label leaking
+				\item For smaller $\varepsilon$, FGSM adversaries are close to PGD, which makes it reasonable
+			\end{itemize}
+			\item Weak (small capacity) models may fail to learn non-trivial classifiers
+			\begin{itemize}[<+->]
+				\setlength\itemsep{1pt}
+				\item Even though the model could converge to an accurate classifier through standard training, it is sacrificed for any kind of robustness against adversarial inputs
+				\item But the model is still vulnerable to attacks
+			\end{itemize}
 			\item The value of the saddle point problem decreases as we increase the capacity
 			\item More capacity and stronger adversaries decrease transferability
+			\begin{itemize}[<+->]
+				\setlength\itemsep{1pt}
+				\item Otherwise, tranferability results in vulnerability to attacks even when there is no direct access to the target network
+			\end{itemize}
 		\end{itemize}
 	}
 \end{frame}
@@ -132,7 +152,7 @@
 
 
 \begin{frame}
-	The steady decrease in the training loss of adversarial examples indicates successfully solution for the original optimization problem during training.
+	The steady decrease in the training loss of adversarial examples indicates the successfulness of the solution for the original optimization problem during training.
 
 	\begin{columns}
 		\begin{column}{0.99\textwidth}
@@ -148,9 +168,14 @@
 \begin{frame}
 	\onslide<+->{Models are trained against a range of adversaries:
 		\begin{itemize}[<+->]
-			\setlength\itemsep{8pt}
+			\setlength\itemsep{4pt}
 			\item White-box attacks with PGD for a different number of iterations and restarts (A)
-			\item White-box attacks with PGD using the Carlini-Wagner (CW), and CW+ when ${\kappa = 50}$
+			\item White-box attacks with PGD using the Carlini-Wagner (CW) \cite{tramer2017space}, and CW+ when ${\kappa = 50}$ (i.e. attack with a high confidence)
+			\begin{itemize}[<+->]
+				\setlength\itemsep{4pt}
+				\item ${f(x^{'}) = max(max\{Z(x^{'})_{i}: i \neq t\} - Z(x^{'})_{t}, -\kappa)}$
+				\item z is the output of all layers except the softmax in a NN (so z is the logit)
+			\end{itemize}
 			\item Black-box attacks from an independently trained copy of the network (A$^{'}$).
 			\item Black-box attacks from a version of the same network trained only on natural examples (A$_{nat}$)
 			\item Black-box attacks from a different convolution architecture (B)
@@ -160,22 +185,19 @@
 
 \begin{frame}
 	\begin{columns}
-		\begin{column}{0.99\textwidth}
+		\begin{column}{0.48\textwidth}
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.3]{nc_ar/table1.png}
+					MNIST
 				\end{center}
 			}
 		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}
-	\begin{columns}
-		\begin{column}{0.99\textwidth}
+		\begin{column}{0.48\textwidth}
 			\onslide<+->{
 				\begin{center}
-					\includegraphics[scale=0.3]{nc_ar/table2.png}
+					\includegraphics[scale=0.4]{nc_ar/table2.png}
+					CIFAR10
 				\end{center}
 			}
 		\end{column}
@@ -183,6 +205,7 @@
 \end{frame}
 
 \begin{frame}
+	Resistance for different values of $\varepsilon$ and $\ell_{2}$-bounded attacks
 	\begin{columns}
 		\begin{column}{0.99\textwidth}
 			\onslide<+->{
@@ -217,13 +240,14 @@
 		\item Adversarial ML, not a new topic
 		\item Having the above in the context of DNN is their contribution
 	\end{itemize}
-
+	\vspace{8pt}
 	\onslide<+->{
-		Recent work on adversarial training on ImageNet also observed that the model capacity is important for adversarial training. Their contribution
-		\begin{itemize}[<+->]
-			\setlength\itemsep{15pt}
-			\item Training against multi-step methods (PGD) does lead to resistance against adversaries
-		\end{itemize}
+		Recent work on adversarial training on ImageNet also observed that the model capacity is important for adversarial training.
+	}
+	\vspace{8pt}
+	
+	\onslide<+->{
+		( Their contribution) Training against multi-step methods (PGD) does lead to resistance against adversaries
 	}
 \end{frame}
 
