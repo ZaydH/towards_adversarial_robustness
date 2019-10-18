@@ -97,7 +97,7 @@
           \end{equation}
         \item Enforce the constraint where:
           \begin{equation}\label{eq:PGD:NextX}
-            \X^{(t+1)} = \Pi_{\mathcal{X}}(z^{(t+1)}) \text{.}
+            \X^{(t+1)} = \Pi_{\sPerturb}(z^{(t+1)}) \text{.}
           \end{equation}
 
         \item Repeat steps~\#2 and~\#3 until convergence
@@ -114,7 +114,7 @@
 \subsection{\texorpdfstring{$\ell_{p}$}{Lp}-Balls}
 
 \begin{frame}{What is our constraint set~$\sPerturb$?}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \setlength{\itemsep}{20pt}
     \item By definition, PGD requires a constraint set,~$\sPerturb$
 

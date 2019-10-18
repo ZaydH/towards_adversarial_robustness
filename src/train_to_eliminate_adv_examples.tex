@@ -12,17 +12,17 @@
   \begin{itemize}[<+->]
     \item So far, we have only talked about solving the \red{inner maximization} to create adversarial examples
 
-    \vspace{13pt}
+    \vspace{10pt}
     \item \textbf{Question}: What do we need to solve to train adversarially robust networks?
-    \vspace{5pt}
+    \vspace{3pt}
     \item \textbf{Answer}: Solve the \green{outer minimization}
 
-    \vspace{13pt}
+    \vspace{10pt}
     \item \textbf{Question}: What algorithm can use to solve the outer maximization?
-    \vspace{5pt}
+    \vspace{3pt}
     \item \textbf{Answer}: Stochastic gradient descent (SGD) on the adversarial examples
       \begin{itemize}[<+->]
-        \setlength{\itemsep}{6pt}
+        \setlength{\itemsep}{4pt}
         \item \textit{Intuition}: SGD on adv.\ examples' loss reduces the \red{inner maximization}
         \item \textit{Takeaway}: Given an algorithm that transforms training examples into adv.\ examples (e.g.,~PGD), the rest of the \textbf{\blue{training process proceeds normally}}
       \end{itemize}
@@ -30,7 +30,7 @@
 \end{frame}
 
 
-\begin{frame}{Why Should I Believe the Preceding Claims are True?}
+\begin{frame}{Why Should You Believe the Preceding Claims are True?}
   \onslide<+->{}
   \onslide<+->{\textbf{Answer}: You shouldn't.  The preceding explanation is definitely \red{not a proof}.}
 
@@ -38,10 +38,10 @@
   \onslide<+->{\madry\ rely on \textbf{\blue{Danskin's Theorem}} that states gradients at inner maximizers (think adversarial examples) correspond to descent directions for the complete problem}
 
   \vspace{20pt}
-  \onslide<+->{\textbf{Problem}: Multiple assumptions made by Danskin's Theorem's \red{do not apply} here, e.g.,~continuously differentiable function, only approximate inner maximizers etc.}
+  \onslide<+->{\textbf{Problem}: Multiple assumptions made by Danskin's Theorem's \red{do not apply} here, e.g.,~continuously differentiable function, only \red{\textit{approximate}} inner maximizers etc.}
   \begin{itemize}[<+->]
     \setlength{\itemsep}{6pt}
-    \item Empirical results show that despite Danskin's not holding the algorithm is addressing the issues
+    \item Empirical results show that despite Danskin's not holding, \madry's approach is robust
     \item A more complete discussion of how Danksin's applies to this problem is in Appendix~A (see Arxiv version) and is beyond the scope of this talk
   \end{itemize}
 \end{frame}
