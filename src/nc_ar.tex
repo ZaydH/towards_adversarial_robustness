@@ -3,23 +3,23 @@
 \begin{frame}
 	\onslide<+->{Solving the following equation is not enough to guarantee the robustness and accuracy of the classifier.
 		\begin{equation*}
-		{\min_{\params} \rho(\params)}\text{, where } \rho(\params) = \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{{ \max_{\delta \in \sPerturb} \loss (\X + \perturb, \y ; \params)}}
+		{\min_{\params} \rho(\params)}\text{, where } \rho(\params) = \mathbb{E}_{(\X,\y) \sim \distr} \sbrack{{ \max_{\perturb \in \sPerturb} \loss (\X + \perturb, \y ; \params)}}
 		\end{equation*}
 	}
 
 	\onslide<+->{The problem must have a small \colortext{green}{\textit{value}}, which means that the final loss achieved by the classifier against adversarial examples must be small.}
-	
+
 	\vspace{4pt}
-	
+
 	\onslide<+->{Therefore, a very small \colortext{blue}{$\rho(\params)$} corresponds to a perfect classifier that is robust to adversarial inputs.}
-	
+
 	\vspace{4pt}
-	
-	\onslide<+->{For a fixed set $\perturb$, the value of the problem is entirely dependent on the
+
+	\onslide<+->{For a fixed set $\sPerturb$, the value of the problem is entirely dependent on the
 		architecture of the classifier.}
-	
+
 	\vspace{4pt}
-	
+
 	\onslide<+->{Therefore, the architectural capacity of the model is very important for its over performance.}
 \end{frame}
 
@@ -29,7 +29,7 @@
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.3]{capacity/benign_only.pdf}
-					
+
 					(Benign) binary classification using a \\\blue{linear decision boundary}
 				\end{center}
 			}
@@ -38,7 +38,7 @@
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.3]{capacity/misclassified_adv.pdf}
-					
+
 					Adversarial $\ell_{\infty}$ balls
 					\\
 					\red{$\star$} misclassified \\ adversarial examples
@@ -49,7 +49,7 @@
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.3]{capacity/complicated_decision.pdf}
-					
+
 					``Complicated'' decision boundary required
 				\end{center}
 			}
@@ -63,7 +63,7 @@
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.18]{nc_ar/mnist.png}
-					
+
 					MNIST
 				\end{center}
 			}
@@ -72,7 +72,7 @@
 			\onslide<+->{
 				\begin{center}
 					\includegraphics[scale=0.44]{nc_ar/cifar10.png}
-					
+
 					CIFAR10
 				\end{center}
 			}
@@ -85,7 +85,7 @@
 		\begin{itemize}[<+->]
 			\setlength\itemsep{8pt}
 			\item Robustness
-			\item The ability to successfully train a classifier against strong adversaries. 
+			\item The ability to successfully train a classifier against strong adversaries.
 		\end{itemize}
 	}
 	\begin{columns}
@@ -112,7 +112,7 @@
 			\item FGSM adversaries don’t increase robustness (for large  $\varepsilon$)
 			\begin{itemize}[<+->]
 				\setlength\itemsep{1pt}
-				\item Training a network with FGSM adversaries and large  $\varepsilon$ results in 
+				\item Training a network with FGSM adversaries and large  $\varepsilon$ results in
 				\item Known as label leaking
 				\item For smaller $\varepsilon$, FGSM adversaries are close to PGD, which makes it reasonable
 			\end{itemize}
@@ -245,7 +245,7 @@
 		Recent work on adversarial training on ImageNet also observed that the model capacity is important for adversarial training.
 	}
 	\vspace{8pt}
-	
+
 	\onslide<+->{
 		( Their contribution) Training against multi-step methods (PGD) does lead to resistance against adversaries
 	}
@@ -257,7 +257,7 @@
 		\begin{itemize}[<+->]
 			\setlength\itemsep{15pt}
 			\item (Previous works) the inner maximization problem can be difficult to solve, (they) it
-			is possible to obtain sufficiently good solutions using randomly re-started projected gradient descent 
+			is possible to obtain sufficiently good solutions using randomly re-started projected gradient descent
 			\item (Previous works) one-step adversaries, (they) multi-step methods
 			\item (Previous works)  FGSM --FGSM-only evaluations are not fully reliable, (they) PGD
 		\end{itemize}
